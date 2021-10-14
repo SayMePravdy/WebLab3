@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:a="http://xmlns.jcp.org/jsf/passthrough"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+<h:head>
+    <link rel="stylesheet" type="text/css" href="resources/styles/style.css"/>
+    <title>Лаба 3</title>
+    <h:outputStylesheet library="styles" name="style.css"/>
+</h:head>
+
+<h:body>
+    <body onload="canvasInit()">
+    <div class="area_zone">
+        <canvas id="chart" width="300px" height="300px">
+        </canvas>
+    </div>
+    <h:form>
+        <div class="box">
+            <div class="arg">
+            <span>
+                <h:outputLabel for="x_arg"><b>Введите X:<br></br></b></h:outputLabel>
+                	<h:selectOneMenu styleClass="valX" id='x_arg' value="#{hitBean.hit.x}">
+                        <f:selectItem itemLabel="-3" itemValue="-3"/>
+                        <f:selectItem itemLabel="-2" itemValue="-2"/>
+                        <f:selectItem itemLabel="-1" itemValue="-1"/>
+                        <f:selectItem itemLabel="0" itemValue="0"/>
+                        <f:selectItem itemLabel="1" itemValue="1"/>
+                        <f:selectItem itemLabel="2" itemValue="2"/>
+                        <f:selectItem itemLabel="3" itemValue="3"/>
+                        <f:selectItem itemLabel="4" itemValue="4"/>
+                        <f:selectItem itemLabel="5" itemValue="5"/>
+                    </h:selectOneMenu>
+				</span>
+            </div>
+            <div class="arg">
+            <span>
+                <h:outputLabel for="y_arg"><b>Введите Y:<br></br></b></h:outputLabel>
+                <h:inputText styleClass="valY" id="y_arg" maxlength="10" a:placeholder="Введите число ∈ (-5;5)"
+                             value="#{hitBean.hit.y}">
+                    <f:validateRequired/>
+                                <f:validateDoubleRange minimum="-5" maximum="5"/>
+                </h:inputText>
+				</span>
+            </div>
+            <div class="arg">
+            <span>
+					 <h:outputLabel for="r_arg"><b>Введите R:<br></br></b></h:outputLabel>
+                	<h:selectOneMenu styleClass="valR" id='r_arg' value="#{hitBean.hit.r}" onchange="changeR()">
+                        <f:selectItem itemLabel="1" itemValue="1"/>
+                        <f:selectItem itemLabel="2" itemValue="2"/>
+                        <f:selectItem itemLabel="3" itemValue="3"/>
+                        <f:selectItem itemLabel="4" itemValue="4"/>
+                        <f:selectItem itemLabel="5" itemValue="5"/>
+                    </h:selectOneMenu>
+				</span>
+            </div>
+        </div>
+        <div class="submitter">
+            <h:commandButton styleClass="submit_button" action="#{hitBean.addHit}" value="Отправить">
+                <f:ajax execute="@form" render="history_table"/>
+            </h:commandButton>
+            <h:commandButton styleClass="clear_button" action="#{hitBean.clearHits}"
+                             value="Очистить историю">
+                <f:ajax execute="@form" render="history_table"/>
+            </h:commandButton>
+        </div>
+    </h:form>
+    <!--    </div>-->
+
+    <div>
+        <h:dataTable id="history_table" styleClass="history-table" value="#{hitBean.hits}" var="hit">
+            <h:column>
+                <f:facet name="header">X</f:facet>
+                <h:outputText value="#{hit.x}"/>
+            </h:column>
+            <h:column>
+                <f:facet name="header">Y</f:facet>
+                <h:outputText value="#{hit.y}"/>
+            </h:column>
+            <h:column>
+                <f:facet name="header">R</f:facet>
+                <h:outputText value="#{hit.r}"/>
+            </h:column>
+            <h:column>
+                <f:facet name="header">Попадание</f:facet>
+                <h:outputText value="#{hit.isHit}"/>
+            </h:column>
+        </h:dataTable>
+    </div>
+    </body>
+</h:body>
+<h:outputScript library="js" name="script.js"/>
+<h:outputScript library="js" name="canvas.js"/>
+</html>
