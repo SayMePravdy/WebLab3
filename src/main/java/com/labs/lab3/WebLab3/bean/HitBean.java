@@ -10,7 +10,6 @@ import java.util.List;
 
 @Named
 @ApplicationScoped
-//@ManagedBean(name = "hitBean")
 public class HitBean implements Serializable {
 
 //    private static final long serialVersionUID = 1L;

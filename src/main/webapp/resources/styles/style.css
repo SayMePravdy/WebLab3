@@ -116,6 +116,8 @@ button:hover {
 
 .valY {
     margin-top: 10px;
+    margin-left: 4px;
+    margin-right: 4px;
     height: 25px;
 }
 
@@ -169,4 +171,10 @@ span > label {
 
 .lab {
     font-size: 16px;
+}
+
+#mock {
+    width: 0;
+    height: 0;
+    opacity: 100%;
 }

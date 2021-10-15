@@ -3,12 +3,12 @@ package com.labs.lab3.WebLab3.entity;
 public class Hit {
     private double x;
     private double y;
-    private double r;
+    private int r;
     private String isHit;
 
     public Hit(){}
 
-    public Hit(double x, double y, double r) {
+    public Hit(double x, double y, int r) {
         this.x = x;
         this.y = y;
         this.r = r;
@@ -32,27 +32,28 @@ public class Hit {
     }
 
     public double getY() {
-        return y;
+        String strY = String.valueOf(y);
+        return Double.parseDouble(strY.length() > 4 ? strY.substring(0, 4) : strY);
     }
 
     public void setY(double y) {
         this.y = y;
     }
 
-    public double getR() {
+    public int getR() {
         return r;
     }
 
-    public void setR(double r) {
+    public void setR(int r) {
         this.r = r;
     }
 
     public void checkHit() {
-        if (x >= 0 && y >= 0 && y <= r && x <= r / 2) {
+        if (x >= 0 && y >= 0 && y <= r && x * 2 <= r) {
             setIsHit("Да");
             return;
         }
-        if (x <= 0 && y >= 0 && (x * x + y * y <= (r * r) / 4)) {
+        if (x <= 0 && y >= 0 && ((x * x + y * y) * 4 <= (r * r))) {
             setIsHit("Да");
             return;
         }

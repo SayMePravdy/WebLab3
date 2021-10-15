@@ -13,7 +13,7 @@
 </h:head>
 
 <h:body>
-    <body onload="canvasInit()">
+    <body onload="canvasInit(); drawAllShoots();">
     <div class="area_zone">
         <canvas id="chart" width="300px" height="300px">
         </canvas>
@@ -60,36 +60,70 @@
             </div>
         </div>
         <div class="submitter">
-            <h:commandButton styleClass="submit_button" action="#{hitBean.addHit}" value="Отправить">
-                <f:ajax execute="@form" render="history_table"/>
+            <h:commandButton styleClass="submit_button" action="#{hitBean.addHit}" value="Отправить" onclick="validate()">
+                <f:ajax execute="@form" render="history_table" onevent="
+                (data) => {
+                    if (data.status === 'success') {
+                        drawAxis();
+                        drawAllShoots();
+                    }
+                }
+                "/>
             </h:commandButton>
             <h:commandButton styleClass="clear_button" action="#{hitBean.clearHits}"
                              value="Очистить историю">
-                <f:ajax execute="@form" render="history_table"/>
+                <f:ajax execute="@form" render="history_table" onevent="
+                (data) => {
+                    if (data.status === 'success') {
+                        drawAxis();
+                    }
+                }
+                "/>
             </h:commandButton>
         </div>
     </h:form>
-    <!--    </div>-->
 
     <div>
         <h:dataTable id="history_table" styleClass="history-table" value="#{hitBean.hits}" var="hit">
             <h:column>
                 <f:facet name="header">X</f:facet>
-                <h:outputText value="#{hit.x}"/>
+                <h:outputText value="#{hit.x}">
+                    <f:convertNumber pattern="#0.00"/>
+                </h:outputText>
             </h:column>
             <h:column>
                 <f:facet name="header">Y</f:facet>
-                <h:outputText value="#{hit.y}"/>
+                <h:outputText value="#{hit.y}">
+                    <f:convertNumber pattern="#0.00"/>
+                </h:outputText>
             </h:column>
             <h:column>
                 <f:facet name="header">R</f:facet>
-                <h:outputText value="#{hit.r}"/>
+                <h:outputText value="#{hit.r}">
+                </h:outputText>
             </h:column>
             <h:column>
                 <f:facet name="header">Попадание</f:facet>
                 <h:outputText value="#{hit.isHit}"/>
             </h:column>
         </h:dataTable>
+    </div>
+    <div style="display: none">
+        <h:form>
+            <h:inputText class="canvasX" value="#{hitBean.hit.x}"></h:inputText>
+            <h:inputText class="canvasY" value="#{hitBean.hit.y}"></h:inputText>
+            <h:inputText class="canvasR" value="#{hitBean.hit.r}"></h:inputText>
+            <h:commandButton class="canvasMockButton" action="#{hitBean.addHit}">
+                <f:ajax execute="@form" render="history_table" onevent="
+                (data) => {
+                    if (data.status === 'success') {
+                        drawAxis();
+                        drawAllShoots();
+                    }
+                }
+                "/>
+            </h:commandButton>
+        </h:form>
     </div>
     </body>
 </h:body>

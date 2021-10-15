@@ -2,10 +2,26 @@ const scale = 25;
 const dash = 5;
 
 
+function drawAllShoots() {
+    let table_rows = document.querySelector("#history_table").tBodies[0].rows;
+    let cnt = table_rows.length;
+    let valR = document.querySelector('.valR').value;
+    for (let i = 0; i < cnt; i++) {
+        let x = parseFloat(table_rows[i].cells[0].innerText.replace(",","."));
+        let y = parseFloat(table_rows[i].cells[1].innerText.replace(",","."));
+        let r = parseInt(table_rows[i].cells[2].innerText.replace(",","."));
+        console.log(r);
+        let isHit = table_rows[i].cells[3].innerText;
+        let coordinates = mapCoordinates(x, y);
+        if (r == valR) {
+            drawShoot(coordinates.x, coordinates.y, isHit);
+        }
+    }
+}
+
 function drawAreas() {
     // let valR = document.getElementById("r_arg").value * scale;
     let valR = document.querySelector('.valR').value * scale;
-    console.log(valR);
     let canvas = document.getElementById('chart');
     let width = canvas.width;
     let height = canvas.height;
@@ -89,8 +105,8 @@ function drawAxis() {
 function drawShoot(x, y, isHit) {
     let canvas = document.getElementById('chart');
     let chart = canvas.getContext('2d');
-    console.log(isHit, '2');
     let color;
+    console.log(isHit);
     if (isHit === 'Да') {
         color = 'green';
     } else {
