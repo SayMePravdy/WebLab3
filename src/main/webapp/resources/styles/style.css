@@ -169,12 +169,16 @@ span > label {
     text-align: center;
 }
 
-.lab {
+#back_button {
+    background-color: rgb(255, 239, 220);
+    border-radius: 4px;
+    float: right;
+    height: 40px;
+    width: 70px;
     font-size: 16px;
+    color: rgb(79, 79, 79);
 }
 
-#mock {
-    width: 0;
-    height: 0;
-    opacity: 100%;
+.lab {
+    font-size: 16px;
 }

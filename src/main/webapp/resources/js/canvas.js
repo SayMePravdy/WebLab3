@@ -7,16 +7,29 @@ function drawAllShoots() {
     let cnt = table_rows.length;
     let valR = document.querySelector('.valR').value;
     for (let i = 0; i < cnt; i++) {
-        let x = parseFloat(table_rows[i].cells[0].innerText.replace(",","."));
-        let y = parseFloat(table_rows[i].cells[1].innerText.replace(",","."));
-        let r = parseInt(table_rows[i].cells[2].innerText.replace(",","."));
-        console.log(r);
+        let x = parseFloat(table_rows[i].cells[0].innerText.replace(",", "."));
+        let y = parseFloat(table_rows[i].cells[1].innerText.replace(",", "."));
+        let r = parseInt(table_rows[i].cells[2].innerText.replace(",", "."));
         let isHit = table_rows[i].cells[3].innerText;
         let coordinates = mapCoordinates(x, y);
         if (r == valR) {
             drawShoot(coordinates.x, coordinates.y, isHit);
         }
     }
+}
+
+function drawLastShoot() {
+    let table_rows = document.querySelector("#history_table").tBodies[0].rows;
+    let last = table_rows.length - 1;
+    // console.log(last);
+    // console.log(table_rows[last]);
+    let valR = document.querySelector('.valR').value;
+    let x = parseFloat(table_rows[last].cells[0].innerText.replace(",", "."));
+    let y = parseFloat(table_rows[last].cells[1].innerText.replace(",", "."));
+    let isHit = table_rows[last].cells[3].innerText;
+    let coordinates = mapCoordinates(x, y);
+    drawShoot(coordinates.x, coordinates.y, isHit);
+
 }
 
 function drawAreas() {
