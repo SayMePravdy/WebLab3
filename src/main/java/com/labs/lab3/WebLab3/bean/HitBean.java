@@ -1,6 +1,9 @@
 package com.labs.lab3.WebLab3.bean;
 
 import com.labs.lab3.WebLab3.entity.Hit;
+import com.labs.lab3.WebLab3.utils.HibernateSessionFactoryUtil;
+import org.hibernate.Session;
+import org.hibernate.Transaction;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Named;
@@ -12,9 +15,15 @@ import java.util.List;
 @ApplicationScoped
 public class HitBean implements Serializable {
 
-//    private static final long serialVersionUID = 1L;
-    private Hit hit = new Hit();
-    private List<Hit> hits = new ArrayList<>();
+    //    private static final long serialVersionUID = 1L;
+    private Hit hit;
+    private List<Hit> hits;
+    private Session hibernateSession = createSession();
+
+    public HitBean() {
+        this.hit = new Hit();
+        clearHits();
+    }
 
     public Hit getHit() {
         return hit;
@@ -25,8 +34,7 @@ public class HitBean implements Serializable {
     }
 
     public List<Hit> getHits() {
-        System.out.println(hits);
-        return hits;
+       return hits;
     }
 
     public void setHits(List<Hit> hits) {
@@ -37,9 +45,27 @@ public class HitBean implements Serializable {
         hit.checkHit();
         hits.add(hit);
         hit = new Hit(hit.getX(), hit.getY(), hit.getR());
+        try {
+            Transaction transaction = hibernateSession.beginTransaction();
+            hibernateSession.save(hit);
+            transaction.commit();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     public void clearHits() {
+//        try {
+//            Transaction transaction = hibernateSession.beginTransaction();
+//            hibernateSession.createQuery("delete from Hit").executeUpdate();
+//            transaction.commit();
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
         hits = new ArrayList<>();
+    }
+
+    private Session createSession() {
+        return HibernateSessionFactoryUtil.getSessionFactory().openSession();
     }
 }
