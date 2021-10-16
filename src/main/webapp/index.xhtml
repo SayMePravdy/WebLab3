@@ -6,6 +6,7 @@
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:f="http://xmlns.jcp.org/jsf/core">
 <h:head>
+    <link rel="stylesheet" type="text/css" href="resources/styles/style.css"/>
     <title>Лаба 3</title>
     <h:outputStylesheet library="styles" name="style.css"/>
 </h:head>
@@ -18,11 +19,13 @@
             <span id="right-header">Вариант: 13210 </span>
         </b>
     </div>
-    <h:link id="start" outcome="goToMain">
-        <button id="change_page_button" type="submit">
-            Старт
-        </button>
-    </h:link>
+    <img id="startyem" src="resources/img/MorskayaPehota.jpg" alt="Natalya"/>
+    <div class="change_page">
+        <h:link id="start" outcome="goToMain">
+            <button id="change_page_button" type="submit">
+                Стартуем
+            </button>
+        </h:link></div>
     <div class="footer">
         <b>
             <span id="left-footer"></span>

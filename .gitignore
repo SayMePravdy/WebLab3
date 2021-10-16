@@ -2,3 +2,4 @@
 /target/
 .idea/
 WebLab3.iml
+src/main/resources/hibernate.cfg.xml

@@ -66,6 +66,11 @@ public class HitBean implements Serializable {
     }
 
     private Session createSession() {
-        return HibernateSessionFactoryUtil.getSessionFactory().openSession();
+        try {
+            return HibernateSessionFactoryUtil.getSessionFactory().openSession();
+        } catch (NullPointerException e) {
+            e.printStackTrace();
+            return null;
+        }
     }
 }
