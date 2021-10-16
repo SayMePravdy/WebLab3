@@ -8,6 +8,7 @@ import org.hibernate.Transaction;
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Named;
 import java.io.Serializable;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -42,9 +43,10 @@ public class HitBean implements Serializable {
     }
 
     public void addHit() {
+        long startTime = System.nanoTime();
         hit.checkHit();
-        hits.add(hit);
-        hit = new Hit(hit.getX(), hit.getY(), hit.getR());
+        hit.setCurrentTime(LocalDateTime.now());
+        hit.setExecutionTime((System.nanoTime() - startTime) / 1000000d);
         try {
             Transaction transaction = hibernateSession.beginTransaction();
             hibernateSession.save(hit);
@@ -52,6 +54,8 @@ public class HitBean implements Serializable {
         } catch (Exception e) {
             e.printStackTrace();
         }
+        hits.add(hit);
+        hit = new Hit(hit.getX(), hit.getY(), hit.getR());
     }
 
     public void clearHits() {

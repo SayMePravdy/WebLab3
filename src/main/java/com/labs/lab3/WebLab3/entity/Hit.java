@@ -4,6 +4,9 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.Date;
 
 @Entity
 public class Hit {
@@ -16,6 +19,12 @@ public class Hit {
     private double y;
     private int r;
     private String isHit;
+    private double executionTime = 0;
+    private LocalDateTime currentTime = LocalDateTime.now();
+
+    public double getExecutionTime() {
+        return executionTime;
+    }
 
     public Hit(){}
 
@@ -24,6 +33,20 @@ public class Hit {
         this.y = y;
         this.r = r;
         this.isHit = "Нет";
+    }
+
+    public void setExecutionTime(double executionTime) {
+        this.executionTime = executionTime;
+    }
+
+    public String getCurrentTime() {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+
+        return currentTime.format(formatter);
+    }
+
+    public void setCurrentTime(LocalDateTime currentTime) {
+        this.currentTime = currentTime;
     }
 
     public String getIsHit() {
@@ -44,7 +67,7 @@ public class Hit {
 
     public double getY() {
         String strY = String.valueOf(y);
-        return Double.parseDouble(strY.length() > 4 ? strY.substring(0, 4) : strY);
+        return Double.parseDouble(strY.length() > 5 ? strY.substring(0, 5) : strY);
     }
 
     public void setY(double y) {

@@ -92,13 +92,13 @@
             <h:column>
                 <f:facet name="header">X</f:facet>
                 <h:outputText value="#{hit.x}">
-                    <f:convertNumber pattern="#0.00"/>
+                    <f:convertNumber pattern="#0.000"/>
                 </h:outputText>
             </h:column>
             <h:column>
                 <f:facet name="header">Y</f:facet>
                 <h:outputText value="#{hit.y}">
-                    <f:convertNumber pattern="#0.00"/>
+                    <f:convertNumber pattern="#0.000"/>
                 </h:outputText>
             </h:column>
             <h:column>
@@ -109,6 +109,17 @@
             <h:column>
                 <f:facet name="header">Попадание</f:facet>
                 <h:outputText value="#{hit.isHit}"/>
+            </h:column>
+            <h:column>
+                <f:facet name="header">Время исполнения (мс)</f:facet>
+                <h:outputText value="#{hit.executionTime}">
+                    <f:convertNumber pattern="#0.0000"/>
+                </h:outputText>
+            </h:column>
+            <h:column>
+                <f:facet name="header">Текущее время</f:facet>
+                <h:outputText value="#{hit.currentTime}">
+                </h:outputText>
             </h:column>
         </h:dataTable>
     </div>
