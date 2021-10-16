@@ -6,30 +6,49 @@ function drawAllShoots() {
     let table_rows = document.querySelector("#history_table").tBodies[0].rows;
     let cnt = table_rows.length;
     let valR = document.querySelector('.valR').value;
+    let sended = [];
     for (let i = 0; i < cnt; i++) {
         let x = parseFloat(table_rows[i].cells[0].innerText.replace(",", "."));
         let y = parseFloat(table_rows[i].cells[1].innerText.replace(",", "."));
         let r = parseInt(table_rows[i].cells[2].innerText.replace(",", "."));
         let isHit = table_rows[i].cells[3].innerText;
         let coordinates = mapCoordinates(x, y);
-        if (r == valR) {
-            drawShoot(coordinates.x, coordinates.y, isHit);
+        if (!findShoot(sended, x, y) && isFinite(x) && isFinite(y)) {
+            if (r == valR) {
+                drawShoot(coordinates.x, coordinates.y, isHit);
+            } else {
+                let canvasX = document.querySelector('.canvasX');
+                let canvasY = document.querySelector('.canvasY');
+                let canvasR = document.querySelector('.canvasR');
+                let mockButton = document.querySelector('.canvasMockButton');
+                canvasX.value = x;
+                canvasY.value = y;
+                canvasR.value = document.querySelector('.valR').value;
+                mockButton.click();
+            }
         }
+        sended.push(new Coordinates(x, y));
     }
+}
+
+function findShoot(shoots, x, y) {
+    let check = false;
+    shoots.forEach(function (item, index, array) {
+        if (item.x == x && item.y == y) {
+            console.log("find");
+            check = true;
+        }
+    });
+    return check;
 }
 
 function drawLastShoot() {
     let table_rows = document.querySelector("#history_table").tBodies[0].rows;
-    let last = table_rows.length - 1;
-    // console.log(last);
-    // console.log(table_rows[last]);
-    let valR = document.querySelector('.valR').value;
-    let x = parseFloat(table_rows[last].cells[0].innerText.replace(",", "."));
-    let y = parseFloat(table_rows[last].cells[1].innerText.replace(",", "."));
-    let isHit = table_rows[last].cells[3].innerText;
+    let x = parseFloat(table_rows[0].cells[0].innerText.replace(",", "."));
+    let y = parseFloat(table_rows[0].cells[1].innerText.replace(",", "."));
+    let isHit = table_rows[0].cells[3].innerText;
     let coordinates = mapCoordinates(x, y);
     drawShoot(coordinates.x, coordinates.y, isHit);
-
 }
 
 function drawAreas() {
@@ -119,7 +138,6 @@ function drawShoot(x, y, isHit) {
     let canvas = document.getElementById('chart');
     let chart = canvas.getContext('2d');
     let color;
-    console.log(isHit);
     if (isHit === 'Да') {
         color = 'green';
     } else {

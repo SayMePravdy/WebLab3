@@ -10,6 +10,7 @@ import javax.inject.Named;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 @Named
@@ -35,7 +36,9 @@ public class HitBean implements Serializable {
     }
 
     public List<Hit> getHits() {
-       return hits;
+        List<Hit> outputHits = new ArrayList<>(hits);
+        Collections.reverse(outputHits);
+        return outputHits;
     }
 
     public void setHits(List<Hit> hits) {
