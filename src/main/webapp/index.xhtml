@@ -19,9 +19,13 @@
             <span id="right-header">Вариант: 13210 </span>
         </b>
     </div>
-    <img id="startyem" src="resources/img/MorskayaPehota.jpg" alt="Natalya"/>
+<!--    <div id="startyem">-->
+<!--        <iframe width="560" height="315" src="https://www.youtube.com/embed/pWJOxvcp7xk?showinfo=0" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"></iframe>-->
+<!--&lt;!&ndash;        <iframe id="video" width="560" height="315" src="https://www.youtube.com/embed/nRTJd91G04Q?rel=0&showinfo=0" frameborder="0"></iframe>&ndash;&gt;-->
+<!--    </div>-->
+    <img id="startyem" src="resources/img/MorskayaPehota.jpg" alt="Natalya" onclick="openInNewTab('https://www.youtube.com/embed/pWJOxvcp7xk?start=30');"/>
     <div class="change_page">
-        <h:link id="start" outcome="goToMain">
+        <h:link id="start" outcome="goToMain" onclick="closeWin()">
             <button id="change_page_button" type="submit">
                 Стартуем
             </button>
@@ -36,5 +40,6 @@
 </h:body>
 
 <h:outputScript library="js" name="timeScript.js"></h:outputScript>
+<h:outputScript library="js" name="script.js"></h:outputScript>
 
 </html>
