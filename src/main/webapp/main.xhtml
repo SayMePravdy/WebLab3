@@ -44,7 +44,7 @@
             <div class="arg">
             <span>
                 <h:outputLabel for="y_arg"><b>Введите Y:<br></br></b></h:outputLabel>
-                <h:inputText styleClass="valY" id="y_arg" maxlength="10" a:placeholder="Введите число ∈ (-5;5)"
+                <h:inputText styleClass="valY" id="y_arg" maxlength="6" a:placeholder="Введите число ∈ (-5;5)"
                              value="#{hitBean.hit.y}">
                     <f:validateRequired/>
                                 <f:validateDoubleRange minimum="-5" maximum="5"/>
@@ -92,13 +92,13 @@
             <h:column>
                 <f:facet name="header">X</f:facet>
                 <h:outputText value="#{hit.x}">
-                    <f:convertNumber pattern="#0.000"/>
+                    <f:convertNumber pattern="#0.0000"/>
                 </h:outputText>
             </h:column>
             <h:column>
                 <f:facet name="header">Y</f:facet>
                 <h:outputText value="#{hit.y}">
-                    <f:convertNumber pattern="#0.000"/>
+                    <f:convertNumber pattern="#0.0000"/>
                 </h:outputText>
             </h:column>
             <h:column>

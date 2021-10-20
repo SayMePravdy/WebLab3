@@ -67,7 +67,8 @@ public class Hit {
 
     public double getY() {
         String strY = String.valueOf(y);
-        return Double.parseDouble(strY.length() > 5 ? strY.substring(0, 5) : strY);
+        int minus = strY.charAt(0) == '-' ? 1 : 0;
+        return Double.parseDouble(strY.length() > 6 + minus ? strY.substring(0, 6 + minus) : strY);
     }
 
     public void setY(double y) {

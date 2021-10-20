@@ -144,7 +144,8 @@ function drawShoot(x, y, isHit) {
         color = 'red';
     }
     chart.beginPath();
-    chart.arc(x, y, dash, 0, Math.PI * 2);
+    let rShoot = document.querySelector('.valR').value * 1.2 + 0.8;
+    chart.arc(x, y, rShoot, 0, Math.PI * 2);
     chart.fillStyle = color;
     chart.strokeStyle = color;
     chart.globalAlpha = 0.45;
